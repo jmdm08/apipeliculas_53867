@@ -59,7 +59,9 @@ controladorPeliculas.get("/buscarPeliculasTitulo/:titulo", async function(req, r
                     "generos": ["A", "B"]
                 }
 */
-
+/**
+ * CREAR UNA NUEVA PELÍCULA 
+ */
 controladorPeliculas.post("/crearPelicula", async function(req, res){
     let peliculaNueva = req.body;
     let respuesta = await servicioPeliculas.crearPelicula(peliculaNueva);
@@ -73,11 +75,23 @@ controladorPeliculas.post("/crearPelicula", async function(req, res){
             "ano": nuevoAno 
         }
 */
-
+/**
+ * ACTUALIZAR PELÍCULA POR ID
+ */
 controladorPeliculas.put("/actualizarPelicula/:id", async function (req,res){
     let id = req.params.id;
     let pelicula = req.body;
     let respuesta = await servicioPeliculas.actualizarPelicula(id,pelicula);
+    res.send(respuesta);
+})
+
+// http://localhost:3500/api/peliculas/eliminarPelicula?id=xxxxx
+/**
+ * ELIMINAR PELÍCULA POR ID
+ */
+controladorPeliculas.delete("/eliminarPelicula", async function(req, res){
+    let id = req.query.id;
+    let respuesta = await servicioPeliculas.eliminarPelicula(id);
     res.send(respuesta);
 })
 
