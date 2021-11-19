@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt'); 
 require('dotenv').config();
 const modeloUsuarios = require('./model');
+const crearToken = require('../auth/jwt').crearToken;
 
 async function crearUsuario(datosUsuario){
     let resultado = {};
@@ -36,8 +37,10 @@ async function iniciarSesion(usuario){
             let esValida = bcrypt.compareSync(usuario.clave, claveEncriptada);
             if(esValida){
                 resultado.mensaje = "Inicio de sesión correcto";
+                const token = crearToken(resultadoUsuario);
                 delete resultadoUsuario.clave;
                 resultado.datos = resultadoUsuario;
+                resultado.token = token;
             }
             else{
                 resultado.mensaje = "Contraseña inválida";
