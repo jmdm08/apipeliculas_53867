@@ -4,7 +4,18 @@ const objectId = require('mongodb').ObjectId;
 function buscarTodo(){
     let conexion = basedatos.obtenerConexion();
 
-    return conexion.collection("peliculas").find({}).toArray()
+    /*
+        TODO: Paginación
+            skip() -> Omite x cantidad de documentos
+            limit() -> Selecciona x cantidad de documentos.
+
+            paginaActual
+            cantidadDocumentoPorPaginas
+
+            .skip((paginaActual-1) * cantidad).limit(cantidad)
+    */
+
+    return conexion.collection("peliculas").find({}).limit(50).toArray()
         .then(function(data){
             return data;
         })
